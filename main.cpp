@@ -1,6 +1,13 @@
-#include <iostream>
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
-    return 0;
+#include <QApplication>
+#include "gui/include/main_window.h"
+
+using namespace calculator;
+using namespace gui;
+
+int main(int argc, char *argv[]) {
+    QApplication application(argc, argv);
+    MainWindow window;
+    window.show();
+    return application.exec();
 }
