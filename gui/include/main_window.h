@@ -2,6 +2,9 @@
 // Created by boa on 15.07.17.
 //
 #include <QMainWindow>
+#include <QAction>
+#include <QMenu>
+#include <QMenuBar>
 #include "calc_widget.h"
 
 #pragma once
@@ -21,11 +24,24 @@ namespace calculator {
 
             void createMenus();
 
+            void createActions();
+
             void createToolBars();
 
             void createStatusBar();
 
             CalcWidget *calcWidget_;
+            QMenu *fileMenu_;
+            QAction *settingsAction_;
+            QAction *quitAction_;
+            QList<QAction *> fileActions_;
+            QMenu *aboutMenu_;
+            QAction *aboutAction_;
+            QAction *aboutQtAction_;
+            QList<QAction *> aboutActions_;
+        public:
+            const unsigned X_ = 200;
+            const unsigned Y_ = 200;
         };
     }
 }

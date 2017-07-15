@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../icons/wrench-settings.png</file>
+    </qresource>
+</RCC>
