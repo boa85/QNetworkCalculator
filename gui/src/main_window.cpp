@@ -24,11 +24,10 @@
  */
 #include <QList>
 #include <QtWidgets/QApplication>
-#include <QMessageBox>
+
 namespace calculator {
     namespace gui {
         MainWindow::MainWindow() {
-
             createUi();
             createConnections();
         }

@@ -21,7 +21,7 @@ namespace calculator {
 
         Q_SIGNALS:
 
-            void connectToHost(const QString &name, const QString &ip, const unsigned port);
+            void connectToHost(const QString &name, const QString &ip, int port);
         private:
             void createUi();
 
