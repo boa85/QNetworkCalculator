@@ -9,7 +9,7 @@
 #include <QPushButton>
 #include <QCheckBox>
 #include <QDialogButtonBox>
-
+#include <QMessageBox>
 namespace calculator {
     namespace gui {
         class SettingsDialog : public QDialog {
@@ -19,20 +19,29 @@ namespace calculator {
 
             virtual ~SettingsDialog();
 
+        Q_SIGNALS:
+
+            void connectToHost(const QString &name, const QString &ip, const unsigned port);
         private:
             void createUi();
 
             void createConnections();
 
-            QLabel *hostLabel;
-            QLabel *portLabel;
-            QLabel *nameLabel;
-            QCheckBox *rememberMeBox;
-            QPushButton *acceptButton;
-            QPushButton *cancelButton;
-            QPushButton *helpButton;
-            QDialogButtonBox *buttonBox;
+            QLabel *hostLabel_;
+            QLabel *portLabel_;
+            QLabel *nameLabel_;
+            QCheckBox *rememberMeBox_;
+            QPushButton *acceptButton_;
+            QPushButton *cancelButton_;
+            QPushButton *helpButton_;
+            QDialogButtonBox *buttonBox_;
+            QSpinBox *portBox_;
+            QLineEdit *hostEdit_;
+            QLineEdit *nameEdit_;
             QLabel *statusLabel;
+        public:
+            const unsigned MIN_PORT = 1001;
+            const unsigned MAX_PORT = 9999;
         };
     }
 }
