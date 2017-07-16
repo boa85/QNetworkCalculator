@@ -13,7 +13,7 @@ using namespace gui;
 namespace calculator {
     namespace gui {
         /**
-         * 
+         *
          */
         class MainWindow : public QMainWindow {
         Q_OBJECT
@@ -42,6 +42,7 @@ namespace calculator {
             QAction *aboutAction_;
             QAction *aboutQtAction_;
             QList<QAction *> aboutActions_;
+
         public:
             const unsigned X_ = 200;
             const unsigned Y_ = 200;

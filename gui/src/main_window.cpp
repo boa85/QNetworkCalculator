@@ -35,6 +35,7 @@ namespace calculator {
         void MainWindow::createUi() {
             move(X_, Y_);
             calcWidget_ = new CalcWidget(this);
+            setCentralWidget(calcWidget_);
             createActions();
             createMenus();
             createToolBars();
