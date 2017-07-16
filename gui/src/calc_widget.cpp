@@ -36,7 +36,7 @@ namespace calculator {
             backspaceButton_ = new QPushButton("Backspace", this);
             gridLayout->addWidget(backspaceButton_, 1, 0, 1, 2);
             clearAllButton_ = new QPushButton("Clear All", this);
-            gridLayout->addWidget(clearAllButton_, 1, 2, 1, 2);
+            gridLayout->addWidget(clearAllButton_, 1, 2);
             for (unsigned i = 1; i < DIGIT_COUNT; ++i) {
                 int row = ((9 - i) / 3) + 2;
                 int column = ((i - 1) % 3);
@@ -100,6 +100,7 @@ namespace calculator {
                 if (waitingOperand_) {
                     return;
                 }
+                expression_ << display_->text();//append last operand
                 emit calculate(expression_);
             });
         }
@@ -108,5 +109,5 @@ namespace calculator {
             digitVector_.reserve(DIGIT_COUNT);
             operatorVector_.reserve(OPERATOR_COUNT);
         }
-    }
-}
+    }//namespace gui
+}//namespace calculator
