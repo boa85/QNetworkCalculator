@@ -37,12 +37,12 @@ namespace calculator {
         Q_SIGNALS:
 
             /**
-             * @brief connectToHost - a signal sent when all fields are correctly filled
+             * @brief serverSettings - a signal sent when all fields are correctly filled
              * @param name - username, used as userId
              * @param ip - host address
              * @param port - port number
              */
-            void connectToHost(const QString &name, const QString &ip, int port);
+            void serverSettings(const QString &name, const QString &ip, int port);
 
         private:
             /**

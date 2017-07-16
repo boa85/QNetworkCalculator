@@ -77,7 +77,7 @@ namespace calculator {
                     //т.к. там задан диапазон значений и накосячить трудно
                     // проверкк поставил самую примитивную
                     //If all fields are filled correctly
-                    emit connectToHost(nameEdit_->text(), hostEdit_->text(), portBox_->value());
+                    emit serverSettings(nameEdit_->text(), hostEdit_->text(), portBox_->value());
                     close();
                 } else {// show warning
                     QMessageBox::warning(this,

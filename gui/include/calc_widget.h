@@ -1,6 +1,7 @@
 //
 // Created by boa on 15.07.17.
 //
+#pragma once
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
@@ -10,21 +11,16 @@
 namespace calculator {
     namespace gui {
         class CalcWidget : public QWidget {
+        Q_OBJECT
         public:
             CalcWidget(QWidget *parent = Q_NULLPTR);
 
             const unsigned DIGIT_COUNT = 10;
             const unsigned OPERATOR_COUNT = 4;
+        signals:
 
-            void calculate(const QStringList &expression);
+            void calculate(QStringList &expression);
 
-            /**
-             * @brief connectToHost - a signal sent when all fields are correctly filled
-             * @param name - username, used as userId
-             * @param ip - host address
-             * @param port - port number
-             */
-            void connectToHost(const QString &name, const QString &ip, int port);
 
         private:
             void createUi();
@@ -38,7 +34,7 @@ namespace calculator {
             QPushButton *equalButton_;
             QPushButton *backspaceButton_;
             QPushButton *clearAllButton_;
-            bool waitingOperand_ = false;
+            bool waitingOperand_ = true;
             QStringList expression_;
 
             void init();

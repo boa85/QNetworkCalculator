@@ -76,6 +76,7 @@ namespace calculator {
             connect(clearAllButton_, &QPushButton::clicked, this, [this]() mutable {
                 if (waitingOperand_) { return; }
                 display_->clear();
+                display_->setText("0");
                 waitingOperand_ = true;
             });
 

@@ -5,6 +5,7 @@
 #include <QAction>
 #include <QMenu>
 #include <QMenuBar>
+#include <QListWidget>
 #include "calc_widget.h"
 
 #pragma once
@@ -19,6 +20,17 @@ namespace calculator {
         Q_OBJECT
         public:
             MainWindow();
+
+        Q_SIGNALS:
+
+            /**
+             * @brief connectToHost - a signal sent when all fields are correctly filled
+             * @param name - username, used as userId
+             * @param ip - host address
+             * @param port - port number
+             */
+            void connectToHost(const QString &name, const QString &ip, int port);
+
 
         private:
             void createUi();
@@ -42,7 +54,16 @@ namespace calculator {
             QAction *aboutAction_;
             QAction *aboutQtAction_;
             QList<QAction *> aboutActions_;
+            QString clientName_;
+            QString hostAddress_;
+            int portNumber_;
+            bool isConnected_;
+            QListWidget *eventList_;
+        private Q_SLOTS:
 
+            void setServerSettings(const QString &name, const QString &hostAddress, const int portNumber);
+
+            void sendCalculatedExpression(const QStringList &expression);
         public:
             const unsigned X_ = 200;
             const unsigned Y_ = 200;

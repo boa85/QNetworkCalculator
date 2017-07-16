@@ -5,31 +5,17 @@
 
 #include "../include/main_window.h"
 #include "../include/settings_dialog.h"
-/**
-    hostEdit        = new QLineEdit;
-    QString ipRange = "(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])";
-    QRegExp ipRegex ("^" + ipRange
-                     + "\\." + ipRange
-                     + "\\." + ipRange
-                     + "\\." + ipRange + "$");
-    QRegExpValidator *ipValidator = new QRegExpValidator(ipRegex, this);
-    hostEdit->setValidator(ipValidator);
-    hostEdit->setToolTip(trUtf8("Введите строку вида 192.168.1.1"));
-    widgetList.append(hostEdit);
-
-    portBox         = new QSpinBox;
-    portBox->setMaximum(9999);
-    portBox->setMinimum(1025);
-    portBox->setValue(1025);
- */
 #include <QList>
 #include <QtWidgets/QApplication>
-
+#include <QDebug>
+#include <QStatusBar>
+#include <QDateTime>
 namespace calculator {
     namespace gui {
         MainWindow::MainWindow() {
             createUi();
             createConnections();
+            eventList_->addItem(QString("start program %1").arg(QTime::currentTime().toString()));
         }
 
         void MainWindow::createUi() {
@@ -43,7 +29,21 @@ namespace calculator {
         }
 
         void MainWindow::createConnections() {
-
+            connect(settingsAction_, &QAction::triggered, this, [this]() {
+                SettingsDialog *dialog = new SettingsDialog;
+                dialog->show();
+                connect(dialog, &SettingsDialog::serverSettings, this, &MainWindow::setServerSettings);
+            });
+            connect(quitAction_, &QAction::triggered, this, []() {
+                QApplication::closeAllWindows();
+            });
+            connect(aboutAction_, &QAction::triggered, this, [this]() {
+                QMessageBox::information(this, trUtf8("About program"),
+                                         trUtf8("Simple network calculator\n Author boa"),
+                                         QMessageBox::Ok);
+            });
+            connect(aboutQtAction_, &QAction::triggered,
+                    qApp, &QApplication::aboutQt);
         }
 
         void MainWindow::createMenus() {
@@ -51,6 +51,7 @@ namespace calculator {
             fileMenu_->addActions(fileActions_);
             aboutMenu_ = menuBar()->addMenu(trUtf8("&Help"));
             aboutMenu_->addActions(aboutActions_);
+
         }
 
         void MainWindow::createToolBars() {
@@ -58,34 +59,36 @@ namespace calculator {
         }
 
         void MainWindow::createStatusBar() {
-
+            eventList_ = new QListWidget;
+            eventList_->setFixedHeight(150);
+            statusBar()->addWidget(eventList_, 1);
+            eventList_->sortItems(Qt::DescendingOrder);
         }
 
         void MainWindow::createActions() {
             settingsAction_ = new QAction(trUtf8("Settings..."), this);
             settingsAction_->setIcon(QIcon(":/images/settings.png"));
-            connect(settingsAction_, &QAction::triggered, this, [this]() {
-                SettingsDialog *dialog = new SettingsDialog;
-                dialog->show();
-            });
             fileActions_.append(settingsAction_);
             quitAction_ = new QAction(trUtf8("quit"), this);
-            connect(quitAction_, &QAction::triggered, this, [=]() {
-                QApplication::closeAllWindows();
-            });
             fileActions_.append(quitAction_);
             aboutAction_ = new QAction(trUtf8("About"), this);
-            connect(aboutAction_, &QAction::triggered, this, [this]() {
-                QMessageBox::information(this, trUtf8("About program"),
-                                         trUtf8("Simple network calculator\n Author boa"),
-                                         QMessageBox::Ok);
-            });
             aboutActions_.append(aboutAction_);
             aboutQtAction_ = new QAction(trUtf8("About Qt..."), this);
-            connect(aboutQtAction_, &QAction::triggered,
-                    qApp, &QApplication::aboutQt);
             aboutActions_.append(aboutQtAction_);
 
+        }
+
+        void MainWindow::setServerSettings(const QString &name, const QString &hostAddress, const int portNumber) {
+            clientName_ = name;
+            hostAddress_ = hostAddress;
+            portNumber_ = portNumber;
+            qDebug() << QString("name %1, ip %2, port %3").arg(clientName_).arg(hostAddress_).arg(portNumber_);
+        }
+
+        void MainWindow::sendCalculatedExpression(const QStringList &expression) {
+            if (isConnected_) {
+                
+            }
         }
     }
 }
