@@ -7,15 +7,15 @@
 #include "../include/settings_dialog.h"
 #include <QList>
 #include <QtWidgets/QApplication>
-#include <QDebug>
 #include <QStatusBar>
 #include <QDateTime>
 namespace calculator {
     namespace gui {
         MainWindow::MainWindow() {
+            init();
             createUi();
             createConnections();
-            eventList_->addItem(QString("start program %1").arg(QTime::currentTime().toString()));
+            eventList_->addItem(QString("%1 start program").arg(QTime::currentTime().toString()));
         }
 
         void MainWindow::createUi() {
@@ -29,11 +29,8 @@ namespace calculator {
         }
 
         void MainWindow::createConnections() {
-            connect(settingsAction_, &QAction::triggered, this, [this]() {
-                SettingsDialog *dialog = new SettingsDialog;
-                dialog->show();
-                connect(dialog, &SettingsDialog::serverSettings, this, &MainWindow::setServerSettings);
-            });
+            connect(settingsAction_, &QAction::triggered, this, &MainWindow::showSettingsDialog);
+
             connect(quitAction_, &QAction::triggered, this, []() {
                 QApplication::closeAllWindows();
             });
@@ -44,6 +41,7 @@ namespace calculator {
             });
             connect(aboutQtAction_, &QAction::triggered,
                     qApp, &QApplication::aboutQt);
+            connect(calcWidget_, &CalcWidget::calculate, this, &MainWindow::sendCalculatedExpression);
         }
 
         void MainWindow::createMenus() {
@@ -78,17 +76,35 @@ namespace calculator {
 
         }
 
-        void MainWindow::setServerSettings(const QString &name, const QString &hostAddress, const int portNumber) {
-            clientName_ = name;
-            hostAddress_ = hostAddress;
+        void MainWindow::setServerSettings(const QString &name, const QString &hostName, const int portNumber) {
+            hostName_ = hostName;
             portNumber_ = portNumber;
-            qDebug() << QString("name %1, ip %2, port %3").arg(clientName_).arg(hostAddress_).arg(portNumber_);
+            tcpSocket_->setName(name);
+            tcpSocket_->connectToHost(hostName_, portNumber_);
+            qDebug() << QString("name %1, ip %2, port %3").arg(clientName_).arg(hostName_).arg(portNumber_);
         }
 
         void MainWindow::sendCalculatedExpression(const QStringList &expression) {
-            if (isConnected_) {
-
+            if (tcpSocket_->state() == QTcpSocket::ConnectedState) {
+                tcpSocket_->sendCalculatedExpression(expression);
+            } else {
+                addEvent("connection error, please enter right server settings");
+                showSettingsDialog();
             }
         }
-    }
-}
+
+        void MainWindow::addEvent(const QString &message) {
+            eventList_->addItem(QTime::currentTime().toString() + " " + message);
+        }
+
+        void MainWindow::init() {
+            tcpSocket_ = new TcpSocket(this);
+        }
+
+        void MainWindow::showSettingsDialog() {
+            SettingsDialog *dialog = new SettingsDialog(this);
+            dialog->show();
+            connect(dialog, &SettingsDialog::serverSettings, this, &MainWindow::setServerSettings);
+        }
+    }//namespace gui
+}//namespace calculator

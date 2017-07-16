@@ -39,5 +39,5 @@ namespace calculator {
 
             void init();
         };
-    }
-}
+    }//namespace gui
+}//namespace calculator

@@ -97,5 +97,5 @@ namespace calculator {
         void SettingsDialog::writeSettings() {
 
         }
-    }
-}
+    }//namespace gui
+}//namespace calculator

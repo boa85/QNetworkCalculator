@@ -7,10 +7,12 @@
 #include <QMenuBar>
 #include <QListWidget>
 #include "calc_widget.h"
+#include "../../network/include/tcp_socket.h"
 
 #pragma once
 using namespace calculator;
 using namespace gui;
+using namespace network;
 namespace calculator {
     namespace gui {
         /**
@@ -23,13 +25,6 @@ namespace calculator {
 
         Q_SIGNALS:
 
-            /**
-             * @brief connectToHost - a signal sent when all fields are correctly filled
-             * @param name - username, used as userId
-             * @param ip - host address
-             * @param port - port number
-             */
-            void connectToHost(const QString &name, const QString &ip, int port);
 
 
         private:
@@ -45,6 +40,7 @@ namespace calculator {
 
             void createStatusBar();
 
+            void init();
             CalcWidget *calcWidget_;
             QMenu *fileMenu_;
             QAction *settingsAction_;
@@ -55,18 +51,26 @@ namespace calculator {
             QAction *aboutQtAction_;
             QList<QAction *> aboutActions_;
             QString clientName_;
-            QString hostAddress_;
+            QString hostName_;
             int portNumber_;
             bool isConnected_;
             QListWidget *eventList_;
+            TcpSocket *tcpSocket_;
+
         private Q_SLOTS:
 
-            void setServerSettings(const QString &name, const QString &hostAddress, const int portNumber);
+            void setServerSettings(const QString &name, const QString &hostName, const int portNumber);
+
+            void addEvent(const QString &message);
+
+            void showSettingsDialog();
 
             void sendCalculatedExpression(const QStringList &expression);
         public:
             const unsigned X_ = 200;
             const unsigned Y_ = 200;
+
+
         };
-    }
-}
+    }//namespace gui
+}//namespace calculator

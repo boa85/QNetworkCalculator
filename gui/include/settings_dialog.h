@@ -120,5 +120,5 @@ namespace calculator {
              */
             const unsigned MAX_PORT = 9999;
         };
-    }
-}
+    }//namespace gui
+}//namespace calculator
