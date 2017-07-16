@@ -87,7 +87,7 @@ namespace calculator {
 
         void MainWindow::sendCalculatedExpression(const QStringList &expression) {
             if (isConnected_) {
-                
+
             }
         }
     }
