@@ -109,5 +109,9 @@ namespace calculator {
             digitVector_.reserve(DIGIT_COUNT);
             operatorVector_.reserve(OPERATOR_COUNT);
         }
+
+        void CalcWidget::setCalcResult(const QString result) {
+                    display_->setText(result);
+        }
     }//namespace gui
 }//namespace calculator

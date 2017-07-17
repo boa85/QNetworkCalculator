@@ -42,6 +42,17 @@ namespace calculator {
             connect(aboutQtAction_, &QAction::triggered,
                     qApp, &QApplication::aboutQt);
             connect(calcWidget_, &CalcWidget::calculate, this, &MainWindow::sendCalculatedExpression);
+            connect(tcpSocket_,&TcpSocket::calculationResult,this,[this](const CalculationStatus status, const QString &result) mutable {
+                switch (status) {
+                    case SUCCESS:
+                        addEvent("calculation successful");
+                        calcWidget_->setCalcResult(result);
+                        break;
+                    case FAILED:
+                        addEvent("calculation failed " + result);
+                        break;
+                }
+            });
         }
 
         void MainWindow::createMenus() {

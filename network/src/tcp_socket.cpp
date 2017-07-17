@@ -38,13 +38,13 @@ namespace calculator {
                 case CalculationStatus::SUCCESS: {
                     QString res;
                     in >> res;
-                    emit calculationResult(res);
+                    emit calculationResult(CalculationStatus::SUCCESS, res);
                     break;
                 }
                 case CalculationStatus::FAILED: {
                     QString serverMessage;
                     in >> serverMessage;
-                    emit socketMessage(serverMessage);
+                    emit calculationResult(CalculationStatus::FAILED, serverMessage);
                     break;
                 }
                 default:
@@ -56,26 +56,26 @@ namespace calculator {
         void TcpSocket::slotSocketError(QAbstractSocket::SocketError socketError) {
             switch (socketError) {
                 case QAbstractSocket::RemoteHostClosedError: {
-                    lastEroror_ = "Remote host close error";
-                    emit socketMessage(lastEroror_);
+                    lastError_ = "Remote host close error";
+                    emit socketMessage(lastError_);
                     break;
                 }
                 case QAbstractSocket::HostNotFoundError: {
-                    lastEroror_ = "The host was not found. Please check the host name and port settings.\n";
-                    emit socketMessage(lastEroror_);
+                    lastError_ = "The host was not found. Please check the host name and port settings.\n";
+                    emit socketMessage(lastError_);
                     break;
                 }
                 case QAbstractSocket::ConnectionRefusedError: {
-                    lastEroror_ = "The connection was refused by the peer.\n"
+                    lastError_ = "The connection was refused by the peer.\n"
                             "Make sure the  server is running,\n"
                             "and check that the host name and port\n"
                             "settings are correct.\n";
-                    emit socketMessage(lastEroror_);
+                    emit socketMessage(lastError_);
                     break;
                 }
                 default:
-                    lastEroror_ = QString("The following error occurred: %1.\n").arg(errorString());
-                    emit socketMessage(lastEroror_);
+                    lastError_ = QString("The following error occurred: %1.\n").arg(errorString());
+                    emit socketMessage(lastError_);
             }
 
         }
@@ -91,7 +91,7 @@ namespace calculator {
         }
 
         const QString &TcpSocket::lastError() {
-            return lastEroror_;
+            return lastError_;
         }
 
         void TcpSocket::connectionOk() {

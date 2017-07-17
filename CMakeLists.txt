@@ -16,6 +16,6 @@ set(SOURCE_FILES main.cpp gui/src/main_window.cpp
         gui/src/settings_dialog.cpp
         gui/include/settings_dialog.h
         network/src/tcp_socket.cpp
-        network/include/tcp_socket.h)
+        network/include/tcp_socket.h service/include/service.hpp)
 add_executable(QNetworkCalculator ${SOURCE_FILES})
 target_link_libraries(QNetworkCalculator Qt5::Widgets Qt5::Core Qt5::Network )# с которыми будем линковать бинарник
