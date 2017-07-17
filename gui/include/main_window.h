@@ -120,11 +120,12 @@ namespace calculator {
             TcpSocket *tcpSocket_;
 
         private Q_SLOTS:
+
             /**
              * @brief setServerSettings - setter, called if SettingsDialog sent signal
-             * @param name
-             * @param hostName
-             * @param portNumber
+             * @param name  - client name
+             * @param hostName - hostname
+             * @param portNumber - number of listen port
              */
             void setServerSettings(const QString &name, const QString &hostName, const int portNumber);
             /**
