@@ -8,12 +8,15 @@ namespace calculator {
     namespace gui {
 
         SettingsDialog::SettingsDialog(QWidget *parent) : QDialog(parent) {
-            createUi();
+            readSettings();//read previous session settings (state)
+            createUi();//create user items
             createConnections();
         }
 
         SettingsDialog::~SettingsDialog() {
-
+            if (rememberMeBox_->isChecked()) {
+                writeSettings();
+            }
         }
 
         void SettingsDialog::createUi() {
@@ -36,17 +39,25 @@ namespace calculator {
             //initialization the user interface items
             portLabel_ = new QLabel(trUtf8("port"));
             nameLabel_ = new QLabel(trUtf8("user name"));
+
             nameEdit_ = new QLineEdit;
+
             rememberMeBox_ = new QCheckBox(trUtf8("remember me"));
+
             acceptButton_ = new QPushButton(trUtf8("Ok"));
+
             cancelButton_ = new QPushButton(trUtf8("Cancel"));
+
             helpButton_ = new QPushButton(trUtf8("help"));
+
             buttonBox_ = new QDialogButtonBox;
             buttonBox_->addButton(acceptButton_, QDialogButtonBox::AcceptRole);
             buttonBox_->addButton(cancelButton_, QDialogButtonBox::RejectRole);
             buttonBox_->addButton(helpButton_, QDialogButtonBox::HelpRole);
+
             portBox_ = new QSpinBox;
             portBox_->setRange(MIN_PORT, MAX_PORT);
+
             //set layout, тута все просто - по сетке расставили и радуемся жизни
             QGridLayout *gridLayout = new QGridLayout;
             gridLayout->addWidget(nameLabel_, 0, 0);
@@ -56,16 +67,18 @@ namespace calculator {
             gridLayout->addWidget(portLabel_, 2, 0);
             gridLayout->addWidget(portBox_, 2, 2);
             gridLayout->addWidget(rememberMeBox_, 3, 2);
+
             QHBoxLayout *boxLayout = new QHBoxLayout;
             boxLayout->addWidget(buttonBox_);
             boxLayout->addStretch();
             gridLayout->addLayout(boxLayout, 4, 0, 1, 2);
-            setLayout(gridLayout);
+
+            setLayout(gridLayout);//set main layout
         }
 
         void SettingsDialog::createConnections() {
             connect(cancelButton_, &QPushButton::clicked, this, &QDialog::close);
-            connect(helpButton_, &QPushButton::clicked, this, [this]() {
+            connect(helpButton_, &QPushButton::clicked, this, [this]() {//show help message
                 QMessageBox::information(this, trUtf8("About settings"),
                                          trUtf8("Please enter username, "
                                                         "host address in format \"192.168.0.1\","
@@ -77,8 +90,8 @@ namespace calculator {
                     //т.к. там задан диапазон значений и накосячить трудно
                     // проверкк поставил самую примитивную
                     //If all fields are filled correctly
-                    emit serverSettings(nameEdit_->text(), hostEdit_->text(), portBox_->value());
-                    close();
+                    emit serverSettings(nameEdit_->text(), hostEdit_->text(), portBox_->value());//send server settings
+                    close();//close window
                 } else {// show warning
                     QMessageBox::warning(this,
                                          trUtf8("WARNING"),
