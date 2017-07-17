@@ -47,16 +47,47 @@ namespace calculator {
              */
             void createUi();
 
+            /**
+             * connect items with signals and slots
+             */
             void createConnections();
 
+            /**
+             * @brief - vector of pointers to QPushButton. Each button  contains a digit
+             */
             QVector<QPushButton *> digitVector_;
+            /**
+             * @brief- vector of pointers to QPushButton. Each button  contains a operator symbol
+             */
             QVector<QPushButton *> operatorVector_;
+            /**
+             * @brief - read only QLineEdit for view the expression and  result of calculation
+             */
             QLineEdit *display_;
+            /**
+             * @brief - button separation integer and fractional part of the number
+             */
             QPushButton *pointButton_;
+            /**
+             * @brief - check waiting operand and send expression to server
+             */
             QPushButton *equalButton_;
+            /**
+             * @brief - removing last symbol
+             */
             QPushButton *backspaceButton_;
+            /**
+             * @brief - clear displat and set value 0
+             */
             QPushButton *clearAllButton_;
+            /**
+             * @brief - true if last clicked button is a operator or display has been cleared
+             * (calculated expression is empty)
+             */
             bool waitingOperand_ = true;
+            /**
+             * @brief - expression to calculation
+             */
             QStringList expression_;
             /**
              * @brief init - init fields a default value
