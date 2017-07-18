@@ -51,6 +51,7 @@ namespace calculator {
                     emit socketMessage("unknown server operation type");
                     break;
             }
+            nextBlockSize_ = 0;
         }
 
         void TcpSocket::slotSocketError(QAbstractSocket::SocketError socketError) {

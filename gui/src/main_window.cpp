@@ -15,6 +15,7 @@ namespace calculator {
             init();
             createUi();
             createConnections();
+
             eventList_->addItem(QString("%1 start program").arg(QTime::currentTime().toString()));
         }
 
@@ -35,15 +36,21 @@ namespace calculator {
             connect(quitAction_, &QAction::triggered, this, []() {
                 QApplication::closeAllWindows();//close all windows and quit
             });
+
             connect(aboutAction_, &QAction::triggered, this, [this]() {
                 QMessageBox::information(this, trUtf8("About program"),//show information about program
                                          trUtf8("Simple network calculator\n Author boa"),
                                          QMessageBox::Ok);
             });
+
             connect(aboutQtAction_, &QAction::triggered,
                     qApp, &QApplication::aboutQt);//show information about Qt
+
             connect(calcWidget_, &CalcWidget::calculate,
                     this, &MainWindow::sendCalculatedExpression);//
+
+            connect(tcpSocket_, &TcpSocket::socketMessage, this, &MainWindow::addEvent);
+
             connect(tcpSocket_, &TcpSocket::calculationResult, this,
                     [this](const CalculationStatus status, const QString &result) mutable {
                         switch (status) {//check calculation status
