@@ -113,6 +113,7 @@ namespace calculator {
         }
 
         void CalcWidget::setCalcResult(const QString result) {
+
             display_->setText(result);//show calculation result
         }
     }//namespace gui
