@@ -21,7 +21,7 @@ namespace calculator {
         void MainWindow::createUi() {
             move(X_, Y_);//set window position
             calcWidget_ = new CalcWidget(this);//create new CalcWidget
-            setCentralWidget(calcWidget_);
+            setCentralWidget(calcWidget_);//set central widget to MainWindow
             createActions();
             createMenus();
             createToolBars();
