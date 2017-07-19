@@ -1,0 +1,12 @@
+digraph "/home/boa/CLionProjects/my/QNetworkCalculator/network/src" {
+  bgcolor=transparent;
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_c901c14b65aa229498a52b725b3d4a2c {
+    graph [ bgcolor="#ddddee", pencolor="black", label="network" fontname="Helvetica", fontsize="10", URL="dir_c901c14b65aa229498a52b725b3d4a2c.html"]
+  dir_2351834354bc8905119ebfe596a90f94 [shape=box, label="src", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_2351834354bc8905119ebfe596a90f94.html"];
+  }
+  dir_9cab7fff190c08877a2347b5fd32e1ed [shape=box label="include" URL="dir_9cab7fff190c08877a2347b5fd32e1ed.html"];
+  dir_2351834354bc8905119ebfe596a90f94->dir_9cab7fff190c08877a2347b5fd32e1ed [headlabel="1", labeldistance=1.5 headhref="dir_000011_000010.html"];
+}

@@ -1,0 +1,11 @@
+digraph "calculator::gui::CalcWidget::calculate"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="calculator::gui::CalcWidget\l::calculate",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="calculator::gui::CalcWidget\l::CalcWidget",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcalculator_1_1gui_1_1_calc_widget.html#aadd1ec26f25c50e7d89d2ae2230f66bb",tooltip="CalcWidget - default constructor. "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="calculator::gui::MainWindow\l::MainWindow",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcalculator_1_1gui_1_1_main_window.html#afb9d2c7a6d4f8af360dc8c7f6579da99",tooltip="MainWindow - default constructor. "];
+}

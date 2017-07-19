@@ -1,0 +1,11 @@
+digraph "calculator::gui::SettingsDialog::serverSettings"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="calculator::gui::Settings\lDialog::serverSettings",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="calculator::gui::MainWindow\l::MainWindow",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcalculator_1_1gui_1_1_main_window.html#afb9d2c7a6d4f8af360dc8c7f6579da99",tooltip="MainWindow - default constructor. "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="calculator::gui::Settings\lDialog::~SettingsDialog",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcalculator_1_1gui_1_1_settings_dialog.html#a5c7cbc92be701d024cadd5d5832845ee",tooltip="~SettingsDialog - destructor. Also write settings if rememberMeBox checked (не уверен, что самое правильное рещение, но оно неоднократно проверено практикой) "];
+}

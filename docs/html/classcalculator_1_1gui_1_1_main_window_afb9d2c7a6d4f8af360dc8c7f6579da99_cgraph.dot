@@ -1,0 +1,9 @@
+digraph "calculator::gui::MainWindow::MainWindow"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="calculator::gui::MainWindow\l::MainWindow",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="calculator::gui::CalcWidget\l::setCalcResult",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcalculator_1_1gui_1_1_calc_widget.html#ae438c3e405091fffbdf82e385f670447",tooltip="setCalcResult - show calculations result into display "];
+}

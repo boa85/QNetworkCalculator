@@ -1,0 +1,11 @@
+digraph "calculator::network::TcpSocket::socketMessage"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="calculator::network\l::TcpSocket::socketMessage",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="calculator::network\l::TcpSocket::~TcpSocket",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcalculator_1_1network_1_1_tcp_socket.html#a8646d39c382042a70225c1063edcc010"];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="calculator::network\l::TcpSocket::lastError",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classcalculator_1_1network_1_1_tcp_socket.html#a18f8f2a5a9ab1432dfcd10dedf0ff410",tooltip="lastError - getter "];
+}
