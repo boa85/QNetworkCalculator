@@ -6,7 +6,6 @@
 #include <QDebug>
 namespace calculator {
     namespace gui {
-
         CalcWidget::CalcWidget(QWidget *parent) : QWidget(parent) {
             init();
             createUi();
@@ -104,6 +103,8 @@ namespace calculator {
                 }
                 expression_ << display_->text();//append last operand
                 emit calculate(expression_);//send expression to server
+                expression_.clear();
+                waitingOperand_ = true;
             });
         }
 
@@ -114,6 +115,8 @@ namespace calculator {
 
         void CalcWidget::setCalcResult(const QString result) {
             display_->setText(result);//show calculation result
+            expression_.clear();
+            waitingOperand_ = true;
         }
     }//namespace gui
 }//namespace calculator

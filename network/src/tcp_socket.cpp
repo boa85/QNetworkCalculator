@@ -51,10 +51,11 @@ namespace calculator {
                     emit socketMessage("unknown server operation type");
                     break;
             }
+            nextBlockSize_ = 0;
         }
 
         void TcpSocket::slotSocketError(QAbstractSocket::SocketError socketError) {
-            switch (socketError) {
+            switch (socketError) {//check error type, тута все очевидно, поэтому не расписываю детали
                 case QAbstractSocket::RemoteHostClosedError: {
                     lastError_ = "Remote host close error";
                     emit socketMessage(lastError_);
@@ -81,13 +82,13 @@ namespace calculator {
         }
 
         void TcpSocket::sendCalculatedExpression(const QStringList &expression) {
-            QByteArray block;
-            QDataStream out(&block, QIODevice::WriteOnly);
-            out.setVersion(QDataStream::Qt_4_3);
-            out << quint16(0) << name_ << expression;
-            out.device()->seek(0);
-            out << quint16(block.size() - sizeof(quint16));
-            write(block);
+            QByteArray block;//declare QByteArray to write
+            QDataStream out(&block, QIODevice::WriteOnly);//init out stream
+            out.setVersion(QDataStream::Qt_4_3);//set QDataStream version for compatibility with previous versions
+            out << quint16(0) << name_ << expression;//write client name and calculated expression
+            out.device()->seek(0);//set position into device
+            out << quint16(block.size() - sizeof(quint16));//write to out real block size
+            write(block);//send block
         }
 
         const QString &TcpSocket::lastError() {
