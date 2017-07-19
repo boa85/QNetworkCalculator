@@ -83,7 +83,7 @@ namespace calculator {
 
             connect(pointButton_, &QPushButton::clicked, this, [this]() mutable {
                 if (waitingOperand_) {//if waiting operand flag
-                    display_->setText("0");//set disolay default value
+                    display_->setText("0");//set display default value
                 }
                 if (!display_->text().contains('.')) {//find the previous occurrence of the character
                     display_->setText(display_->text() + ".");//if not found, then append point symbol
@@ -92,7 +92,7 @@ namespace calculator {
             });
             for (auto button : operatorVector_) {//for all operator buttons
                 connect(button, &QPushButton::clicked, this, [this, button]() mutable {
-                    expression_ << display_->text();//append currend operand to expression
+                    expression_ << display_->text();//append current operand to expression
                     button->text() == "\303\227" ? expression_ << "*" : expression_ << button->text();//append operator
                     // symbol to expression
                     waitingOperand_ = true;//set waiting operand flag
