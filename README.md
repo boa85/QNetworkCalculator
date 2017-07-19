@@ -1,7 +1,7 @@
 # QNetworkCalculator
 Simple network calculator client
 
-build and run
+build and run:
 
 cd project source dir
 
